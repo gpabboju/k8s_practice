@@ -1,0 +1,110 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: ganga-prod-frontend
+  labels:
+      name: app-A
+      environment: Production
+      tier: frontend
+spec:
+  containers:
+  - name: nginx
+    image: nginx
+    ports:
+    - containerPort: 80
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: ganga-prod-middleware
+  labels:
+      name: app-B
+      environment: Production
+      tier: middleware
+spec:
+  containers:
+  - name: tomcat
+    image: tomcat
+    ports:
+    - containerPort: 8080
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: ganga-prod-backend
+  labels:
+      name: app-C
+      environment: Production
+      tier: backend
+spec:
+  containers:
+  - name: mysql
+    image: mysql:latest
+    env:
+      - name: "MYSQL_USER"
+        value: "mysql"
+      - name: "MYSQL_PASSWORD"
+        value: "mysql"
+      - name: "MYSQL_DATABASE"
+        value: "sample"
+      - name: "MYSQL_ROOT_PASSWORD"
+        value: "supersecret"
+    ports:
+      - containerPort: 3306
+
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: ganga-dev-frontend
+  labels:
+      name: app-A
+      environment: Development
+      tier: frontend
+spec:
+  containers:
+  - name: nginx
+    image: nginx
+    ports:
+    - containerPort: 80
+
+---
+apiVersion: v1 
+kind: Pod
+metadata:
+  name: ganga-dev-middleware
+  labels:
+      name: app-A
+      enrironment: Development
+      tier: frontend
+spec:
+  containers:
+  - name: tomcat
+    image: tomcat
+    ports:
+    - containerPort: 8080
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: ganga-dev-backend
+  labels:
+      name: app-C
+      environment: Development
+      tier: backend
+spec:
+  containers:
+  - name: mysql
+    image: mysql:latest
+    env:
+      - name: "MYSQL_USER"
+        value: "mysql"
+      - name: "MYSQL_PASSWORD"
+        value: "mysql"
+      - name: "MYSQL_DATABASE"
+        value: "sample"
+      - name: "MYSQL_ROOT_PASSWORD"
+        value: "supersecret"
+    ports:
+    - containerPort: 3306
+
