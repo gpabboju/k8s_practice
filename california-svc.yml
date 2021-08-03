@@ -4,8 +4,8 @@ metadata:
   name: californiaapp
 
 spec:
-  selectors:
-    app: california
+  selector:
+    app: californiaapp
   ports:
   - name: http
     port: 80
