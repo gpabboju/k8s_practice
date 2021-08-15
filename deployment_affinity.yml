@@ -1,0 +1,34 @@
+# The manifest file demonstrates the affinity concept.
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fleetman-application
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: webapp
+  template:
+    metadata:
+      labels:
+        app: webapp
+    spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: color
+                operator: In
+                values:
+                - red
+      containers:
+      - name: fleetman
+        image: richardchesterwood/k8s-fleetman-webapp-angular:release0
+      tolerations:
+      - key: "hardware"
+        operator: "Equal"
+        value: "modern"
+        effect: "NoSchedule"
+

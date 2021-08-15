@@ -1,0 +1,26 @@
+# The manifest file is to display the nodeSelector.
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fleetman-application
+spec:
+  replicas: 1 
+  selector:
+    matchLabels:
+      app: webapp
+  template:
+    metadata:
+      labels:
+        app: webapp
+    spec:
+      containers:
+      - name: fleetman
+        image: richardchesterwood/k8s-fleetman-webapp-angular:release0-5
+      tolerations:
+      - key: "hardware"
+        operator: "Equal"
+        value: "modern"
+#        effect: "NoSchedule"
+#        effect: "NoExecute"
+        effect: "PreferNoSchedule"  
